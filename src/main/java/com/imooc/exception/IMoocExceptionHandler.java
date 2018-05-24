@@ -19,10 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 public class IMoocExceptionHandler {
 
     /**
-     * 自定义的错误视图的名称
+     * 自定义默认的错误视图的名称
      */
     public static final String IMOOC_ERROR_VIEW = "error";
-    
+
 
     /**
      * 判断是否是ajax请求
