@@ -22,22 +22,7 @@ public class IMoocExceptionHandler {
      * 自定义的错误视图的名称
      */
     public static final String IMOOC_ERROR_VIEW = "error";
-
-    /**
-     * 页面跳转形式的异常处理器
-     */
-//	@ExceptionHandler(value = Exception.class)
-//    public Object errorHandler(HttpServletRequest reqest, 
-//    		HttpServletResponse response, Exception e) throws Exception {
-//    	
-//    	e.printStackTrace();
-//    	
-//		ModelAndView mav = new ModelAndView();
-//        mav.addObject("exception", e);
-//        mav.addObject("url", reqest.getRequestURL());
-//        mav.setViewName(IMOOC_ERROR_VIEW);
-//        return mav;
-//    }
+    
 
     /**
      * 判断是否是ajax请求
@@ -61,19 +46,25 @@ public class IMoocExceptionHandler {
      * @throws Exception
      */
     @ExceptionHandler(value = Exception.class)
-    public Object errorHandler(HttpServletRequest reqest,
-                               HttpServletResponse response, Exception e) throws Exception {
+    public Object errorHandler(HttpServletRequest reqest, HttpServletResponse response, Exception e) throws Exception {
+
 
         e.printStackTrace();
 
         if (isAjax(reqest)) {
+
+            //ajax请求时返回json格式错误消息
             return IMoocJSONResult.errorException(e.getMessage());
+
         } else {
+
+            //web请求时,返回页面形式的错误消息
             ModelAndView mav = new ModelAndView();
             mav.addObject("exception", e);
             mav.addObject("url", reqest.getRequestURL());
             mav.setViewName(IMOOC_ERROR_VIEW);
             return mav;
+
         }
     }
 }
